@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Node local instalado pelo frontend-maven-plugin
+node/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

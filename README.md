@@ -35,7 +35,7 @@ Minimal guide to build and run locally. The packaged JAR serves both the REST AP
 - POST `/api/v1/scheduler` — create a scheduled transfer
 
 ```` 
-curl --location 'http://localhost:8080/api/v1/scheduler' \
+curl.exe --location 'http://localhost:8080/api/v1/scheduler' \
 --header 'Content-Type: application/json' \
 --data '{ 
 "sourceAccount": "1234567890",
@@ -48,7 +48,7 @@ curl --location 'http://localhost:8080/api/v1/scheduler' \
 - GET `/api/v1/extract` — list scheduled transfers
 
 ````
-curl --location 'http://localhost:8080/api/v1/extract'
+curl.exe --location 'http://localhost:8080/api/v1/extract'
 ````
 
 ## Transfer Scheduling App

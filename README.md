@@ -1,28 +1,25 @@
 ## Transfer Scheduling App
 
-Concise guide to build and run the application locally. The packaged JAR serves both the REST API and the built SPA.
+Minimal guide to build and run locally. The packaged JAR serves both the REST API and the built SPA.
 
 **Stack**
-- Backend: Spring Boot 2.7 (Java 11), Spring Web, JPA, H2 (in‑memory)
-- Frontend: Vue 3 + Vite, Axios (built and copied into backend `/static` by Maven)
+- Backend: Spring Boot 2.7 (Java 11), Spring Web, JPA, H2 (in-memory)
+- Frontend: Vue 3 + Vite (built by Maven and copied to backend `/static`)
 
 **Requirements**
-- JDK 11+ installed. Maven Wrapper (`mvnw`/`mvnw.cmd`) is included.
-- Node is NOT required to run the final JAR.
+- JDK 11+ installed (Maven Wrapper included)
 
-**Single Build**
-- Linux/macOS: `cd backend && ./mvnw clean package -DskipTests`
-- Windows PowerShell: `cd backend; .\mvnw.cmd clean package -DskipTests`
-- What it does: runs `npm install` and `vite build` in `frontend/transfer-app`, then copies `dist/` to `target/classes/static/` and packages the JAR.
-
-**Run**
-- From `backend/`: `java -jar target/app-0.0.1-SNAPSHOT.jar`
+**Quick Start**
+- Clone: `git clone https://github.com/JosePaulo2301/transfer-scheduling-app.git && cd transfer-scheduling-app`
+- Build:
+  - Linux/macOS: `cd backend && ./mvnw clean package -DskipTests`
+  - Windows (PowerShell): `cd backend; .\mvnw.cmd clean package -DskipTests`
+- Run: `java -jar target/app-0.0.1-SNAPSHOT.jar`
 - Access: `http://localhost:8080` (SPA served at `/`)
 
 **Main API**
 - POST `/api/v1/scheduler` — create a scheduled transfer
 - GET `/api/v1/extract` — list scheduled transfers
-
 
 ## Transfer Scheduling App
 

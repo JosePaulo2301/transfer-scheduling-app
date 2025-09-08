@@ -84,16 +84,16 @@ function formatCurrency(value) {
       <h2>Transfer Statement</h2>
       <ul>
         <li v-for="t in transfers" :key="t.id">
-<pre class="pretty-block">
-=========================================
-      Source Account: {{ t.sourceAccount }}
-      Destination Account:  {{ t.destinationAccount }}
-      Value Transfer: R$ {{ formatCurrency(t.valueTransfer) }}
-      Tax: R$ {{ formatCurrency(t.tax) }}
-      Transfer: {{ t.dateTransfer }}
-      Scheduler: {{ t.dateScheduler }}
-=========================================
-</pre>
+          <div class="pretty-block">
+            <div class="sep"></div>
+            <div class="row"><span class="label">Source Account:</span><span class="value">{{ t.sourceAccount }}</span></div>
+            <div class="row"><span class="label">Destination Account:</span><span class="value">{{ t.destinationAccount }}</span></div>
+            <div class="row"><span class="label">Value Transfer:</span><span class="value">R$ {{ formatCurrency(t.valueTransfer) }}</span></div>
+            <div class="row"><span class="label">Tax:</span><span class="value">R$ {{ formatCurrency(t.tax) }}</span></div>
+            <div class="row"><span class="label">Transfer:</span><span class="value">{{ t.dateScheduler }}</span></div>
+            <div class="row"><span class="label">Scheduler:</span><span class="value">{{ t.dateTransfer }}</span></div>
+            <div class="sep"></div>
+          </div>
         </li>
       </ul>
     </div>
@@ -161,14 +161,31 @@ li {
 }
 
 .pretty-block {
-  white-space: pre;        /* não quebra linhas */
-  overflow-x: auto;        /* scroll horizontal se precisar */
   background: #111;
   color: #fff;
   padding: 16px 20px;
   border-radius: 8px;
   border: 1px solid #2a2a2a;
+}
+.pretty-block .sep {
+  border-top: 2px dashed #bdbdbd;
+  margin: 4px 0 12px;
+}
+.row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap; /* evita scroll horizontal */
   line-height: 1.6;
+}
+.label {
+  width: 190px;
+  min-width: 160px;
+  font-weight: 600;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+.value {
+  flex: 1 1 auto;
+  overflow-wrap: anywhere; /* quebra palavras longas */
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 </style>

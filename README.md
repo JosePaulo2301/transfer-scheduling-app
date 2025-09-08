@@ -1,27 +1,52 @@
 ## Transfer Scheduling App
 
-Aplicação full‑stack para agendar transferências financeiras com cálculo automático de taxas.
+Concise guide to build and run the application locally. The packaged JAR serves both the REST API and the built SPA.
 
-**Visão Geral**
-- Backend: Spring Boot (Java 11), H2 em memória.
-- Frontend: Vue 3 + Vite, Axios.
-- Módulos: `backend/` e `frontend/transfer-app/`.
+**Stack**
+- Backend: Spring Boot 2.7 (Java 11), Spring Web, JPA, H2 (in‑memory)
+- Frontend: Vue 3 + Vite, Axios (built and copied into backend `/static` by Maven)
 
-**Requisitos**
-- Java 11+ e Maven (ou `mvnw/mvnw.cmd`).
-- Node.js 18+ e npm.
+**Requirements**
+- JDK 11+ installed. Maven Wrapper (`mvnw`/`mvnw.cmd`) is included.
+- Node is NOT required to run the final JAR.
 
-**Como Rodar (Desenvolvimento)**
-- Backend: `cd backend && ./mvnw spring-boot:run` (Windows: `mvnw.cmd spring-boot:run`) → http://localhost:8080
-- Frontend: `cd frontend/transfer-app && npm install && npm run dev` → http://localhost:5173
+**Single Build**
+- Linux/macOS: `cd backend && ./mvnw clean package -DskipTests`
+- Windows PowerShell: `cd backend; .\mvnw.cmd clean package -DskipTests`
+- What it does: runs `npm install` and `vite build` in `frontend/transfer-app`, then copies `dist/` to `target/classes/static/` and packages the JAR.
 
-**Build (Único)**
-- Tudo em um comando: `cd backend && ./mvnw clean package`
-  - O Maven instala Node/npm localmente, roda `npm ci` e `npm run build` no `frontend/transfer-app` e copia o `dist/` para `target/classes/static/`.
-  - Execute o JAR em `backend/target/` para servir a API e os assets do frontend.
+**Run**
+- From `backend/`: `java -jar target/app-0.0.1-SNAPSHOT.jar`
+- Access: `http://localhost:8080` (SPA served at `/`)
 
-**API (principais)**
-- POST `/api/v1/scheduler` – agenda uma transferência.
-- GET `/api/v1/extract` – lista transferências agendadas.
+**Main API**
+- POST `/api/v1/scheduler` — create a scheduled transfer
+- GET `/api/v1/extract` — list scheduled transfers
 
-CORS liberado para `http://localhost:5173`. H2 Console disponível em `/h2-console`.
+
+## Transfer Scheduling App
+
+
+**INTERFACE**
+
+![alt text](assets/image-1.png)
+
+
+**FILLING**
+
+![alt text](assets/image-1.png)
+
+**MAKING APPOINTMENT**
+
+![alt text](assets/image-2.png)
+
+**RESCUING APPOINTMENT via LIST DECLARATION**
+
+
+![alt text](assets/image-4.png)
+
+**SIMILATING ERROR WITH A DATE OUTSIDE THE RULE**
+
+![alt text](assets/image-6.png)
+
+

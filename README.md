@@ -50,3 +50,6 @@ Concise guide to build and run the application locally. The packaged JAR serves 
 ![alt text](assets/image-6.png)
 
 
+## 
+- **DEV Name: jose.dev2301@gmail.com**
+- **Test Requesting Company: Tokio Marine**

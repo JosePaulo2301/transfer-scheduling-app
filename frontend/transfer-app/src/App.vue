@@ -2,36 +2,60 @@
 import { ref } from 'vue'
 import { api } from './services/api'
 
-// estado para guardar o resultado
-const result = ref(null)
+const sourceAccount = ref('')
+const destinationAccount = ref('')
+const valueTransfer = ref(null)
+const dateTransfer = ref('')
+const message = ref('')
+const transfers = ref([])
 
-// função para criar agendamento
+// Função para criar agendamento
 const createScheduler = async () => {
   try {
     const payload = {
-      destinationAccount: "1234567890",
-      sourceAccount: "9876543210",
-      valueTransfer: 100,
-      dateTransfer: "10/09/2025 10:00:00",
-      dateScheduler: "08/09/2025 10:00:00"
+      sourceAccount: sourceAccount.value,
+      destinationAccount: destinationAccount.value,
+      valueTransfer: valueTransfer.value,
+      dateTransfer: formatDate(dateTransfer.value),
+      dateScheduler: formatDate(new Date())
     }
-    const response = await api.post('/scheduler', payload)
-    result.value = response.data
+
+    await api.post('/scheduler', payload)
+    message.value = '✅ Transferência registrada com sucesso!'
+    
+    // limpa os campos do formulário
+    sourceAccount.value = ''
+    destinationAccount.value = ''
+    valueTransfer.value = null
+    dateTransfer.value = ''
   } catch (err) {
     console.error(err)
-    result.value = "Erro ao criar agendamento"
+    message.value = '❌ Erro ao registrar transferência'
   }
 }
 
-// função para listar agendamentos
+// Função para listar agendamentos
 const listSchedulers = async () => {
   try {
     const response = await api.get('/extract')
-    result.value = response.data
+    transfers.value = response.data
+    message.value = ''
   } catch (err) {
     console.error(err)
-    result.value = "Erro ao listar agendamentos"
+    message.value = '❌ Erro ao buscar extrato'
   }
+}
+
+// utilitário para formatar data
+function formatDate(dateInput) {
+  const d = new Date(dateInput)
+  const day = String(d.getDate()).padStart(2, '0')
+  const month = String(d.getMonth() + 1).padStart(2, '0')
+  const year = d.getFullYear()
+  const hours = String(d.getHours()).padStart(2, '0')
+  const minutes = String(d.getMinutes()).padStart(2, '0')
+  const seconds = String(d.getSeconds()).padStart(2, '0')
+  return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`
 }
 </script>
 
@@ -39,14 +63,30 @@ const listSchedulers = async () => {
   <div class="app">
     <h1>Finance Transfer</h1>
 
-    <div class="buttons">
-      <button @click="createScheduler">Schedule Transfer</button>
-      <button @click="listSchedulers">List Scheduler</button>
-    </div>
+    <!-- Formulário -->
+    <form @submit.prevent="createScheduler" class="form">
+      <input v-model="sourceAccount" placeholder="Conta Origem" required />
+      <input v-model="destinationAccount" placeholder="Conta Destino" required />
+      <input v-model.number="valueTransfer" type="number" step="0.01" placeholder="Valor" required />
+      <input v-model="dateTransfer" type="datetime-local" required />
+      <button type="submit">Agendar Transferência</button>
+    </form>
 
-    <div v-if="result">
-      <h2>Resultado</h2>
-      <pre>{{ result }}</pre>
+    <div v-if="message" class="message">{{ message }}</div>
+
+    <!-- Botão para extrato -->
+    <button @click="listSchedulers">Listar Extrato</button>
+
+    <!-- Lista -->
+    <div v-if="transfers.length > 0" class="list">
+      <h2>Extrato de Transferências</h2>
+      <ul>
+        <li v-for="t in transfers" :key="t.id">
+          {{ t.sourceAccount }} → {{ t.destinationAccount }} |
+          R$ {{ t.valueTransfer }} | Taxa: R$ {{ t.tax }} |
+          Data: {{ t.dateTransfer }}
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -54,20 +94,60 @@ const listSchedulers = async () => {
 <style scoped>
 .app {
   text-align: center;
-  padding: 50px;
+  padding: 40px;
   color: white;
   background-color: #121212;
   min-height: 100vh;
 }
 
-.buttons {
-  margin: 20px 0;
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 300px;
+  margin: 0 auto 20px auto;
+}
+
+input, button {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 14px;
 }
 
 button {
-  margin: 10px;
-  padding: 10px 20px;
-  font-size: 16px;
   cursor: pointer;
+  background: #1976d2;
+  color: white;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #0d47a1;
+}
+
+.message {
+  margin: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.list {
+  margin-top: 20px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background: #1e1e1e;
+  margin: 8px auto;
+  padding: 12px;
+  border-radius: 6px;
+  width: 70%;
+  text-align: left;
 }
 </style>

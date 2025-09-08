@@ -174,7 +174,7 @@ li {
 .row {
   display: flex;
   gap: 8px;
-  flex-wrap: wrap; /* evita scroll horizontal */
+  flex-wrap: wrap; 
   line-height: 1.6;
 }
 .label {
@@ -185,7 +185,7 @@ li {
 }
 .value {
   flex: 1 1 auto;
-  overflow-wrap: anywhere; /* quebra palavras longas */
+  overflow-wrap: anywhere;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 </style>

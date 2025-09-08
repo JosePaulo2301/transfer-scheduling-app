@@ -1,12 +1,12 @@
 <template>
   <div>
-    <h2>Agendar Transferência</h2>
+    <h2>Schedule transfer</h2>
     <form @submit.prevent="agendar">
-      <input v-model="sourceAccount" placeholder="Conta Origem" />
-      <input v-model="destinationAccount" placeholder="Conta Destino" />
-      <input v-model.number="valueTransfer" type="number" placeholder="Valor da Transferência" />
+      <input v-model="sourceAccount" placeholder="Source Account" />
+      <input v-model="destinationAccount" placeholder="Destination Account" />
+      <input v-model.number="valueTransfer" type="number" placeholder="Value Transer" />
       <input v-model="dateTransfer" type="date" />
-      <button type="submit">Agendar</button>
+      <button type="submit">Schedule</button>
     </form>
     <p v-if="mensagem">{{ mensagem }}</p>
   </div>
@@ -26,7 +26,7 @@ export default {
     };
   },
   methods: {
-    async agendar() {
+    async scheduler() {
       try {
         await api.post('/scheduler', {
           sourceAccount: this.sourceAccount,
@@ -35,10 +35,10 @@ export default {
           dateTransfer: this.dateTransfer + " 10:00:00",
           dateScheduler: new Date().toISOString().slice(0, 19).replace('T', ' ') 
         });
-        this.mensagem = '✅ Transferência agendada com sucesso!';
+        this.mensagem = '✅ Transfer registered successfully!';
       } catch (error) {
         console.error(error);
-        this.mensagem = '❌ Erro ao agendar transferência.';
+        this.mensagem = '❌ Error registering transfer';
       }
     }
   }

@@ -20,7 +20,7 @@ const createScheduler = async () => {
     }
 
     await api.post('/scheduler', payload)
-    message.value = '✅ Transferência registrada com sucesso!'
+    message.value = '✅ Transfer registered successfully!'
     
     sourceAccount.value = ''
     destinationAccount.value = ''
@@ -28,7 +28,7 @@ const createScheduler = async () => {
     dateTransfer.value = ''
   } catch (err) {
     console.error(err)
-    message.value = '❌ Erro ao registrar transferência'
+    message.value = '❌ Error registering transfer'
   }
 }
 
@@ -39,7 +39,7 @@ const listSchedulers = async () => {
     message.value = ''
   } catch (err) {
     console.error(err)
-    message.value = '❌ Erro ao buscar extrato'
+    message.value = '❌ Error when searching extract'
   }
 }
 
@@ -60,19 +60,19 @@ function formatDate(dateInput) {
     <h1>Finance Transfer</h1>
 
     <form @submit.prevent="createScheduler" class="form">
-      <input v-model="sourceAccount" placeholder="Conta Origem" required />
-      <input v-model="destinationAccount" placeholder="Conta Destino" required />
-      <input v-model.number="valueTransfer" type="number" step="0.01" placeholder="Valor" required />
+      <input v-model="sourceAccount" placeholder="Source Account" required />
+      <input v-model="destinationAccount" placeholder="Destination Account" required />
+      <input v-model.number="valueTransfer" type="number" step="0.01" placeholder="Value transfer" required />
       <input v-model="dateTransfer" type="datetime-local" required />
-      <button type="submit">Agendar Transferência</button>
+      <button type="submit">Schedule Transfer</button>
     </form>
 
     <div v-if="message" class="message">{{ message }}</div>
 
-    <button @click="listSchedulers">Listar Extrato</button>
+    <button @click="listSchedulers">List Statement</button>
 
     <div v-if="transfers.length > 0" class="list">
-      <h2>Extrato de Transferências</h2>
+      <h2>Transfer Statement</h2>
       <ul>
         <li v-for="t in transfers" :key="t.id">
           {{ t.sourceAccount }} → {{ t.destinationAccount }} |

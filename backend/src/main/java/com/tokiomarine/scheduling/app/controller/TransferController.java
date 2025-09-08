@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,6 +19,7 @@ import com.tokiomarine.scheduling.app.service.TransferService;
 
 @RestController
 @RequestMapping("/api/v1")
+@CrossOrigin(origins = "http://localhost:5173")
 public class TransferController {
 
 
@@ -26,13 +28,13 @@ public class TransferController {
         this.transferService = transferService;
     }
 
-    @PostMapping("/create")
+    @PostMapping("/scheduler")
     public ResponseEntity<Transfer> scheduler(@RequestBody @Valid TransferRequestDTO transferDTO) {
         Transfer transfer = transferService.scheduler(transferDTO);
         return ResponseEntity.ok(transfer);
     }
 
-    @GetMapping("/list")
+    @GetMapping("/extract")
     public ResponseEntity<List<Transfer>> listScheduler() {
         List<Transfer> transfers = transferService.listScheduler();
         return ResponseEntity.ok(transfers);

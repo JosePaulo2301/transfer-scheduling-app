@@ -23,7 +23,7 @@ import com.tokiomarine.scheduling.app.model.TransferRequestDTO;
 import com.tokiomarine.scheduling.app.service.TransferService;
 
 @WebMvcTest(TransferController.class)
-public class TransferControllerTest {
+class TransferControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -53,7 +53,7 @@ public class TransferControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
 
-        mockMvc.perform(post("/api/v1/create")
+        mockMvc.perform(post("/api/v1/scheduler")
                 .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(request)))
             .andExpect(status().isOk())
@@ -77,7 +77,7 @@ public class TransferControllerTest {
 
     when(transferService.listScheduler()).thenReturn(lista);
 
-    mockMvc.perform(get("/api/v1/list"))
+    mockMvc.perform(get("/api/v1/extract"))
     .andExpect(status().isOk())
     .andExpect(jsonPath("$[0].id").value(1))
     .andExpect(jsonPath("$[0].sourceAccount").value("123"));
@@ -91,7 +91,7 @@ public class TransferControllerTest {
 
         mapper.registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
 
-     mockMvc.perform(post("/api/v1/create")
+     mockMvc.perform(post("/api/v1/scheduler")
             .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
             .content(mapper.writeValueAsString(request)))
         .andExpect(status().isBadRequest());
@@ -102,7 +102,7 @@ public class TransferControllerTest {
     void shouldReturnEmptyListWhenNoTransfers() throws Exception {
     when(transferService.listScheduler()).thenReturn(List.of());
 
-    mockMvc.perform(get("/api/v1/list"))
+    mockMvc.perform(get("/api/v1/extract"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.length()").value(0));
 }

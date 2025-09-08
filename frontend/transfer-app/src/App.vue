@@ -1,23 +1,73 @@
 <script setup>
+import { ref } from 'vue'
+import { api } from './services/api'
+
+// estado para guardar o resultado
+const result = ref(null)
+
+// função para criar agendamento
+const createScheduler = async () => {
+  try {
+    const payload = {
+      destinationAccount: "1234567890",
+      sourceAccount: "9876543210",
+      valueTransfer: 100,
+      dateTransfer: "10/09/2025 10:00:00",
+      dateScheduler: "08/09/2025 10:00:00"
+    }
+    const response = await api.post('/scheduler', payload)
+    result.value = response.data
+  } catch (err) {
+    console.error(err)
+    result.value = "Erro ao criar agendamento"
+  }
+}
+
+// função para listar agendamentos
+const listSchedulers = async () => {
+  try {
+    const response = await api.get('/extract')
+    result.value = response.data
+  } catch (err) {
+    console.error(err)
+    result.value = "Erro ao listar agendamentos"
+  }
+}
 </script>
 
-
 <template>
-  <h1>Transferência Financeira</h1>
+  <div class="app">
+    <h1>Finance Transfer</h1>
+
+    <div class="buttons">
+      <button @click="createScheduler">Schedule Transfer</button>
+      <button @click="listSchedulers">List Scheduler</button>
+    </div>
+
+    <div v-if="result">
+      <h2>Resultado</h2>
+      <pre>{{ result }}</pre>
+    </div>
+  </div>
 </template>
 
-
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.app {
+  text-align: center;
+  padding: 50px;
+  color: white;
+  background-color: #121212;
+  min-height: 100vh;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+.buttons {
+  margin: 20px 0;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
 }
 </style>

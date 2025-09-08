@@ -26,13 +26,13 @@ public class TransferController {
         this.transferService = transferService;
     }
 
-    @PostMapping("/create")
+    @PostMapping("/scheduler")
     public ResponseEntity<Transfer> scheduler(@RequestBody @Valid TransferRequestDTO transferDTO) {
         Transfer transfer = transferService.scheduler(transferDTO);
         return ResponseEntity.ok(transfer);
     }
 
-    @GetMapping("/list")
+    @GetMapping("/extract")
     public ResponseEntity<List<Transfer>> listScheduler() {
         List<Transfer> transfers = transferService.listScheduler();
         return ResponseEntity.ok(transfers);

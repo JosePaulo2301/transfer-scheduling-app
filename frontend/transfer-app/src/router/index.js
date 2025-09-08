@@ -3,7 +3,7 @@ import Scheduler from '../components/scheduler.vue';
 import Extract from '../components/extract.vue';
 
 const routes = [
-  { path: '/', component: Scheduler },
+  { path: '/scheduler', component: Scheduler },
   { path: '/extract', component: Extract }
 ];
 

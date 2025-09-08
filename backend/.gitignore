@@ -1,0 +1,63 @@
+HELP.md
+target/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+
+
+# Java/Maven
+/backend/target/
+/backend/.classpath
+/backend/.factorypath
+/backend/.project
+/backend/.settings/
+backend/HELP.md
+
+# Node/Vite
+/frontend/transfer-app/node_modules/
+frontend/transfer-app/dist/
+
+# IDEs
+**/.vscode/
+**/.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Others
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

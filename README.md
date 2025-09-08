@@ -19,10 +19,23 @@ Minimal guide to build and run locally. The packaged JAR serves both the REST AP
 
 **Main API**
 - POST `/api/v1/scheduler` — create a scheduled transfer
+
+```` 
+curl --location 'http://localhost:8080/api/v1/scheduler' \
+--header 'Content-Type: application/json' \
+--data '{ 
+"sourceAccount": "1234567890",
+"destinationAccount": "0987654321",
+"valueTransfer": 1000.00,
+"dateTransfer": "08/09/2025 14:00:00"
+}'
+````
+
 - GET `/api/v1/extract` — list scheduled transfers
 
-
-
+````
+curl --location 'http://localhost:8080/api/v1/extract'
+````
 
 ## Transfer Scheduling App
 

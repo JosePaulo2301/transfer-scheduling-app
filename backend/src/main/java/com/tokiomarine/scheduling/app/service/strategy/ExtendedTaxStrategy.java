@@ -5,10 +5,10 @@ import java.math.BigDecimal;
 import com.tokiomarine.scheduling.app.enums.TaxCalculateEnum;
 import com.tokiomarine.scheduling.app.service.busuness.TaxStrategy;
 
-public class TaxCalculatedE implements TaxStrategy {
+public class ExtendedTaxStrategy implements TaxStrategy {
 
 	@Override
 	public BigDecimal calculate(BigDecimal value) {
-		return TaxCalculateEnum.E.calcularTaxa(value);
+		return TaxCalculateEnum.EXTENDED.calcularTaxa(value);
 	}
 }

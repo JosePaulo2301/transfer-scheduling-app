@@ -27,10 +27,6 @@ public class TransferControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    private TransferService service;
-    
     
     @MockBean
     private TransferService transferService;

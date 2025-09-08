@@ -4,7 +4,7 @@ import Extract from '../components/extract.vue';
 
 const routes = [
   { path: '/', component: Scheduler },
-  { path: '/extrato', component: Extract }
+  { path: '/extract', component: Extract }
 ];
 
 export const router = createRouter({

@@ -57,7 +57,7 @@ public class TransferControllerTest {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
 
-        mockMvc.perform(post("/transfers")
+        mockMvc.perform(post("/api/v1/create")
                 .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
                 .content(mapper.writeValueAsString(request)))
             .andExpect(status().isOk())
@@ -80,7 +80,7 @@ public class TransferControllerTest {
 
     when(transferService.listScheduler()).thenReturn(lista);
 
-    mockMvc.perform(get("/transfers"))
+    mockMvc.perform(get("/api/v1/list"))
     .andExpect(status().isOk())
     .andExpect(jsonPath("$[0].id").value(1))
     .andExpect(jsonPath("$[0].sourceAccount").value("123"));
@@ -93,7 +93,7 @@ public class TransferControllerTest {
 
         mapper.registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
 
-     mockMvc.perform(post("/transfers")
+     mockMvc.perform(post("/api/v1/list")
             .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
             .content(mapper.writeValueAsString(request)))
         .andExpect(status().isBadRequest());
@@ -104,7 +104,7 @@ public class TransferControllerTest {
     void deveRetornarListaVaziaQuandoNaoHaTransferencias() throws Exception {
     when(transferService.listScheduler()).thenReturn(List.of());
 
-    mockMvc.perform(get("/transfers"))
+    mockMvc.perform(get("/api/v1/list"))
         .andExpect(status().isOk())
         .andExpect(jsonPath("$.length()").value(0));
 }

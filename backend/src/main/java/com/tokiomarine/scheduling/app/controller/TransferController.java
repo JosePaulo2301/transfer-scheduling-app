@@ -17,7 +17,7 @@ import com.tokiomarine.scheduling.app.service.TransferService;
 
 
 @RestController
-@RequestMapping("/transfers")
+@RequestMapping("/api/v1")
 public class TransferController {
 
 
@@ -26,13 +26,13 @@ public class TransferController {
         this.transferService = transferService;
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Transfer> scheduler(@RequestBody @Valid TransferRequestDTO transferDTO) {
         Transfer transfer = transferService.scheduler(transferDTO);
         return ResponseEntity.ok(transfer);
     }
 
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity<List<Transfer>> listScheduler() {
         List<Transfer> transfers = transferService.listScheduler();
         return ResponseEntity.ok(transfers);

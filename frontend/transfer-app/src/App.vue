@@ -89,7 +89,7 @@ function formatDate(dateInput) {
   text-align: center;
   padding: 40px;
   color: white;
-  background-color: #121212;
+  background-color: #a4a1a1;
   min-height: 100vh;
 }
 

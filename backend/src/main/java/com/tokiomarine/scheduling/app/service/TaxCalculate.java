@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import com.tokiomarine.scheduling.app.service.busuness.TaxStrategy;
 
-public class TaxCalculated implements TaxStrategy {
+public class TaxCalculate implements TaxStrategy {
 	
 
     private final int minDays;
@@ -18,7 +18,7 @@ public class TaxCalculated implements TaxStrategy {
     }
 
     
-	   public TaxCalculated(int minDays, int maxDays, BigDecimal valorFixo, BigDecimal percentual) {
+	   public TaxCalculate(int minDays, int maxDays, BigDecimal valorFixo, BigDecimal percentual) {
 	        this.minDays = minDays;
 	        this.maxDays = maxDays;
 	        this.valorFixo = valorFixo;

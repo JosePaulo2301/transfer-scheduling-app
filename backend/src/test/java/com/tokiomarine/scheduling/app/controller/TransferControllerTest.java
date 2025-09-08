@@ -27,16 +27,12 @@ public class TransferControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
-    private TransferService service;
-    
     
     @MockBean
     private TransferService transferService;
 
     @Test
-     void deveAgendarTransferenciaComSucesso() throws Exception {
+     void shouldScheduleTransferSuccessfully() throws Exception {
         TransferRequestDTO request = new TransferRequestDTO();
         request.setSourceAccount("1234567890");
         request.setDestinationAccount("0987654321");
@@ -67,7 +63,8 @@ public class TransferControllerTest {
         
     }
 
-    void deveListarTransferencias() throws Exception {
+    @Test
+    void shouldListTransfers() throws Exception {
     List<Transfer> lista = List.of(
         new Transfer(1L,
                      "123",
@@ -86,14 +83,15 @@ public class TransferControllerTest {
     .andExpect(jsonPath("$[0].sourceAccount").value("123"));
     }
 
-    void deveRetornarBadRequestQuandoDadosInvalidos() throws Exception {
+    @Test
+    void shouldReturnBadRequestWhenInvalidData() throws Exception {
         TransferRequestDTO request = new TransferRequestDTO();
 
         ObjectMapper mapper = new ObjectMapper();
 
         mapper.registerModule(new com.fasterxml.jackson.datatype.jsr310.JavaTimeModule());
 
-     mockMvc.perform(post("/api/v1/list")
+     mockMvc.perform(post("/api/v1/create")
             .contentType(org.springframework.http.MediaType.APPLICATION_JSON)
             .content(mapper.writeValueAsString(request)))
         .andExpect(status().isBadRequest());
@@ -101,7 +99,7 @@ public class TransferControllerTest {
     }
 
     @Test
-    void deveRetornarListaVaziaQuandoNaoHaTransferencias() throws Exception {
+    void shouldReturnEmptyListWhenNoTransfers() throws Exception {
     when(transferService.listScheduler()).thenReturn(List.of());
 
     mockMvc.perform(get("/api/v1/list"))

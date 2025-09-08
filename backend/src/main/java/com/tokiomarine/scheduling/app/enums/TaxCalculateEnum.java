@@ -5,12 +5,12 @@ import java.math.BigDecimal;
 
 public enum TaxCalculateEnum {
 
-    A (0, 0,   new BigDecimal("3.00"), new BigDecimal("0.025")),
-    B (1, 10,  new BigDecimal("12.00"), BigDecimal.ZERO),
-    C (11, 20, BigDecimal.ZERO, new BigDecimal("0.082")),
-    D (21, 30, BigDecimal.ZERO, new BigDecimal("0.069")),
-    E (31, 40, BigDecimal.ZERO, new BigDecimal("0.047")),
-    F (41, 50, BigDecimal.ZERO, new BigDecimal("0.017"));
+    IMMEDIATE      (0, 0,   new BigDecimal("3.00"), new BigDecimal("0.025")),
+    SHORT_TERM     (1, 10,  new BigDecimal("12.00"), BigDecimal.ZERO),
+    MEDIUM_TERM    (11, 20, BigDecimal.ZERO, new BigDecimal("0.082")),
+    LONG_TERM      (21, 30, BigDecimal.ZERO, new BigDecimal("0.069")),
+    EXTENDED       (31, 40, BigDecimal.ZERO, new BigDecimal("0.047")),
+    VERY_LONG_TERM (41, 50, BigDecimal.ZERO, new BigDecimal("0.017"));
 
     private final int minDays;
     private final int maxDays;

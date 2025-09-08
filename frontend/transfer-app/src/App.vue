@@ -9,7 +9,6 @@ const dateTransfer = ref('')
 const message = ref('')
 const transfers = ref([])
 
-// Função para criar agendamento
 const createScheduler = async () => {
   try {
     const payload = {
@@ -23,7 +22,6 @@ const createScheduler = async () => {
     await api.post('/scheduler', payload)
     message.value = '✅ Transferência registrada com sucesso!'
     
-    // limpa os campos do formulário
     sourceAccount.value = ''
     destinationAccount.value = ''
     valueTransfer.value = null
@@ -34,7 +32,6 @@ const createScheduler = async () => {
   }
 }
 
-// Função para listar agendamentos
 const listSchedulers = async () => {
   try {
     const response = await api.get('/extract')
@@ -46,7 +43,6 @@ const listSchedulers = async () => {
   }
 }
 
-// utilitário para formatar data
 function formatDate(dateInput) {
   const d = new Date(dateInput)
   const day = String(d.getDate()).padStart(2, '0')
@@ -63,7 +59,6 @@ function formatDate(dateInput) {
   <div class="app">
     <h1>Finance Transfer</h1>
 
-    <!-- Formulário -->
     <form @submit.prevent="createScheduler" class="form">
       <input v-model="sourceAccount" placeholder="Conta Origem" required />
       <input v-model="destinationAccount" placeholder="Conta Destino" required />
@@ -74,10 +69,8 @@ function formatDate(dateInput) {
 
     <div v-if="message" class="message">{{ message }}</div>
 
-    <!-- Botão para extrato -->
     <button @click="listSchedulers">Listar Extrato</button>
 
-    <!-- Lista -->
     <div v-if="transfers.length > 0" class="list">
       <h2>Extrato de Transferências</h2>
       <ul>

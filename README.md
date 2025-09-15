@@ -12,7 +12,7 @@ Minimal guide to build and run locally. The packaged JAR serves both the REST AP
 **Quick Start**
 - Clone: 
     ````
-    git@github.com:JosePaulo2301/transfer-scheduling-app.git
+    git clone git@github.com:JosePaulo2301/transfer-scheduling-app.git
     ````
 - Build:
   - Linux/macOS:
